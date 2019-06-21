@@ -23,6 +23,7 @@ data_structures_test = executable(
         'test'/'test_queue.cpp',
         'test'/'test_queue2.cpp',
         'test'/'test_heap.cpp',
+        'test'/'test_binary_tree.cpp',
     ],
     link_with: data_structures_lib,
     dependencies: catch2_dep,
