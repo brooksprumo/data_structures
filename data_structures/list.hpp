@@ -1,4 +1,5 @@
 #include <cassert>
+#include <utility>
 
 template <typename T>
 class List
@@ -38,7 +39,7 @@ public:
 		}
 		else
 		{
-			auto node = new Node(the_data);
+			auto * node = new Node(the_data);
 			node->next = head_;
 			head_->prev = node;
 			head_ = node;
@@ -53,7 +54,7 @@ public:
 		}
 		else
 		{
-			auto node = new Node(the_data);
+			auto * node = new Node(the_data);
 			node->prev = tail_;
 			tail_->next = node;
 			tail_ = node;
@@ -63,7 +64,7 @@ public:
 	void pop_front()
 	{
 		assert(not empty());
-		const auto node = head_;
+		const auto * node = head_;
 		head_ = head_->next;
 		if (head_ != nullptr)
 		{
@@ -75,7 +76,7 @@ public:
 	void pop_back()
 	{
 		assert(not empty());
-		const auto node = tail_;
+		const auto * node = tail_;
 		tail_ = tail_->prev;
 		if (tail_ != nullptr)
 		{
@@ -104,6 +105,24 @@ public:
 	const T & peek_back() const
 	{
 		return peek_back();
+	}
+
+	void reverse()
+	{
+		auto * node = head_;
+		while (node != nullptr)
+		{
+			auto * orig_prev = node->prev;
+			auto * orig_next = node->next;
+
+			node->next = orig_prev;
+			node->prev = orig_next;
+
+			node = orig_next;
+		}
+
+		using std::swap;
+		swap(head_, tail_);
 	}
 
 private:

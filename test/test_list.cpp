@@ -71,3 +71,44 @@ TEST_CASE("List destructor clears list")
 	l.~List();
 	REQUIRE(l.empty());
 }
+
+TEST_CASE("List can be reversed, empty")
+{
+	List<int> l;
+	REQUIRE(l.empty());
+
+	l.reverse();
+
+	REQUIRE(l.empty());
+}
+
+TEST_CASE("List can be reversed, single element")
+{
+	List<int> l;
+	l.push_back(1);
+	REQUIRE_FALSE(l.empty());
+
+	l.reverse();
+
+	REQUIRE(l.peek_front() == 1);
+}
+
+TEST_CASE("List can be reversed, multiple elements")
+{
+	List<int> l;
+	l.push_back(1);
+	l.push_back(2);
+	l.push_back(3);
+	l.push_back(4);
+	REQUIRE_FALSE(l.empty());
+
+	l.reverse();
+
+	REQUIRE(l.peek_front() == 4);
+	l.pop_front();
+	REQUIRE(l.peek_front() == 3);
+	l.pop_front();
+	REQUIRE(l.peek_front() == 2);
+	l.pop_front();
+	REQUIRE(l.peek_front() == 1);
+}
