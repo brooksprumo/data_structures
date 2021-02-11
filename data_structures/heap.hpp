@@ -1,5 +1,6 @@
 #include <cassert>
 #include <functional>
+#include <utility>
 #include <vector>
 
 namespace
@@ -41,7 +42,8 @@ public:
 	void pop()
 	{
 		assert(not empty());
-		std::swap(nodes_.front(), nodes_.back());
+		using std::swap;
+		swap(nodes_.front(), nodes_.back());
 		nodes_.pop_back();
 		heapify_down();
 	}
@@ -64,7 +66,8 @@ private:
 			const auto parent_index = get_index_parent(index);
 			if (nodes_[index] < nodes_[parent_index])
 			{
-				std::swap(nodes_[index], nodes_[parent_index]);
+				using std::swap;
+				swap(nodes_[index], nodes_[parent_index]);
 			}
 			index = parent_index;
 		}
@@ -88,7 +91,8 @@ private:
 
 			if (not Comparator()(nodes_[index], nodes_[child_index]))
 			{
-				std::swap(nodes_[index], nodes_[child_index]);
+				using std::swap;
+				swap(nodes_[index], nodes_[child_index]);
 			}
 
 			index = child_index;
